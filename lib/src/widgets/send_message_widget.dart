@@ -41,6 +41,7 @@ class SendMessageWidget extends StatefulWidget {
     this.sendMessageBuilder,
     this.onReplyCallback,
     this.onReplyCloseCallback,
+    this.customMessageReplyViewBuilder,
   }) : super(key: key);
 
   /// Provides call back when user tap on send button on text field.
@@ -63,6 +64,9 @@ class SendMessageWidget extends StatefulWidget {
 
   /// Provides controller for accessing few function for running chat.
   final ChatController chatController;
+
+  /// To customize reply view for custom message type
+  final CustomMessageReplyViewBuilder? customMessageReplyViewBuilder;
 
   @override
   State<SendMessageWidget> createState() => SendMessageWidgetState();
@@ -202,18 +206,12 @@ class SendMessageWidgetState extends State<SendMessageWidget> {
                                         _voiceReplyMessageView
                                       else if (state.messageType.isImage)
                                         _imageReplyMessageView
+                                      else if (state.messageType.isCustom)
+                                        widget.customMessageReplyViewBuilder
+                                                ?.call(state) ??
+                                            _defaultReplyMessageView(state)
                                       else
-                                        Text(
-                                          state.message,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: widget.sendMessageConfig
-                                                    ?.replyMessageColor ??
-                                                Colors.black,
-                                          ),
-                                        ),
+                                        _defaultReplyMessageView(state),
                                     ],
                                   ),
                                 ),
@@ -278,6 +276,18 @@ class SendMessageWidgetState extends State<SendMessageWidget> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _defaultReplyMessageView(ReplyMessage state) {
+    return Text(
+      state.message,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        fontSize: 12,
+        color: widget.sendMessageConfig?.replyMessageColor ?? Colors.black,
+      ),
     );
   }
 

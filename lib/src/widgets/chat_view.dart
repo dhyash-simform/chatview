@@ -54,6 +54,7 @@ class ChatView extends StatefulWidget {
     required this.chatViewState,
     ChatViewStateConfiguration? chatViewStateConfig,
     this.featureActiveConfig = const FeatureActiveConfig(),
+    this.customMessageReplyViewBuilder,
   })  : chatBackgroundConfig =
             chatBackgroundConfig ?? const ChatBackgroundConfiguration(),
         chatViewStateConfig =
@@ -136,6 +137,9 @@ class ChatView extends StatefulWidget {
 
   /// Provides callback when user tap on chat list.
   final VoidCallBack? onChatListTap;
+
+  /// To customize reply view for custom message type
+  final CustomMessageReplyViewBuilder? customMessageReplyViewBuilder;
 
   @override
   State<ChatView> createState() => _ChatViewState();
@@ -264,6 +268,8 @@ class _ChatViewState extends State<ChatView>
                       onReplyCallback: (reply) => replyMessage.value = reply,
                       onReplyCloseCallback: () =>
                           replyMessage.value = const ReplyMessage(),
+                      customMessageReplyViewBuilder:
+                          widget.customMessageReplyViewBuilder,
                     ),
                 ],
               ),
