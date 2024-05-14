@@ -1,3 +1,9 @@
+## [1.3.2] (Unreleased)
+* **Feat**: [156](https://github.com/SimformSolutionsPvtLtd/flutter_chatview/pull/156) 
+  Default avatar, error builder for profile image for asset and network, 
+  added cached_network_image for network images
+
+
 ## [1.3.1]
 
 * **Feat**: [105](https://github.com/SimformSolutionsPvtLtd/flutter_chatview/pull/105) Allow user 
