@@ -1,3 +1,8 @@
+## [1.3.2] (Unreleased)
+* **Fix**: [131](https://github.com/SimformSolutionsPvtLtd/flutter_chatview/issues/131)
+  Fix unsupported operation while running on the web.
+
+
 ## [1.3.1]
 
 * **Feat**: [105](https://github.com/SimformSolutionsPvtLtd/flutter_chatview/pull/105) Allow user 
