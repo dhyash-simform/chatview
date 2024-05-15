@@ -471,6 +471,18 @@ ChatView(
 )
 ```
 
+19. Add callback on reacted user tap `reactedUserCallback`.
+```dart
+
+ChatView(
+  ...
+      reactedUserCallback: (reactedUser, reaction) {
+        debugPrint('$reactedUser');
+      },
+  ...
+),
+```
+
 
 
 ## How to use

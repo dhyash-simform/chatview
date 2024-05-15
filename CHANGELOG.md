@@ -1,3 +1,8 @@
+## [1.3.2] (Unreleased)
+* **Feat**: [157](https://github.com/SimformSolutionsPvtLtd/flutter_chatview/pull/157)
+  Added onTap of reacted user from reacted user list 
+
+
 ## [1.3.1]
 
 * **Feat**: [105](https://github.com/SimformSolutionsPvtLtd/flutter_chatview/pull/105) Allow user 
