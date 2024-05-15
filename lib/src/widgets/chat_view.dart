@@ -54,6 +54,7 @@ class ChatView extends StatefulWidget {
     required this.chatViewState,
     ChatViewStateConfiguration? chatViewStateConfig,
     this.featureActiveConfig = const FeatureActiveConfig(),
+    this.emojiPickerSheetConfig,
   })  : chatBackgroundConfig =
             chatBackgroundConfig ?? const ChatBackgroundConfiguration(),
         chatViewStateConfig =
@@ -136,6 +137,8 @@ class ChatView extends StatefulWidget {
 
   /// Provides callback when user tap on chat list.
   final VoidCallBack? onChatListTap;
+
+  final Config? emojiPickerSheetConfig;
 
   @override
   State<ChatView> createState() => _ChatViewState();
@@ -250,6 +253,7 @@ class _ChatViewState extends State<ChatView>
                           assignReplyMessage: (message) => _sendMessageKey
                               .currentState
                               ?.assignReplyMessage(message),
+                          emojiPickerSheetConfig: widget.emojiPickerSheetConfig,
                         );
                       },
                     ),

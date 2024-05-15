@@ -471,6 +471,24 @@ ChatView(
 )
 ```
 
+19. Added `emojiPickerSheetConfig` for configuration of emoji picker sheet.
+
+```dart
+ChatView(
+   ...
+      emojiPickerSheetConfig: const Config(
+        columns: 7,
+        emojiSizeMax: 32
+        initCategory: Category.RECENT,
+        bgColor: Colors.white,
+        recentTabBehavior: RecentTabBehavior.NONE,
+        recentsLimit: 28,
+      ),
+        
+  ...
+ 
+)
+```
 
 
 ## How to use

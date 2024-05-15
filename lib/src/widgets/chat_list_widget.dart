@@ -51,6 +51,7 @@ class ChatListWidget extends StatefulWidget {
     this.loadMoreData,
     this.isLastPage,
     this.onChatListTap,
+    this.emojiPickerSheetConfig,
   }) : super(key: key);
 
   /// Provides controller for accessing few function for running chat.
@@ -107,6 +108,8 @@ class ChatListWidget extends StatefulWidget {
 
   /// Provides callback when user tap anywhere on whole chat.
   final VoidCallBack? onChatListTap;
+
+  final Config? emojiPickerSheetConfig;
 
   @override
   State<ChatListWidget> createState() => _ChatListWidgetState();
@@ -228,6 +231,7 @@ class _ChatListWidgetState extends State<ChatListWidget>
                       reactionPopupConfig: widget.reactionPopupConfig,
                       onTap: _onChatListTap,
                       showPopUp: showPopupValue,
+                      emojiPickerSheetConfig: widget.emojiPickerSheetConfig,
                     ),
                 ],
               );
