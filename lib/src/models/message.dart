@@ -123,7 +123,7 @@ class Message {
         'reaction': reaction.toJson(),
         'message_type': _$MessageTypeEnumMap[messageType]!,
         'voice_message_duration': voiceMessageDuration?.inMicroseconds,
-        'status': _$MessageStatusEnumMap[status.name]!,
+        'status': _$MessageStatusEnumMap[status]!,
       };
 }
 
