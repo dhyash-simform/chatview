@@ -19,6 +19,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+import 'package:json_annotation/json_annotation.dart';
+
 import '../values/enumaration.dart';
 
 class ReplyMessage {
@@ -51,17 +53,29 @@ class ReplyMessage {
         message: json['message'],
         replyBy: json['replyBy'],
         replyTo: json['replyTo'],
-        messageType: json["message_type"],
+        messageType:
+            $enumDecodeNullable(_$MessageTypeEnumMap, json['message_type']) ??
+                MessageType.text,
         messageId: json["id"],
-        voiceMessageDuration: json["voiceMessageDuration"],
+        voiceMessageDuration: json['voiceMessageDuration'] == null
+            ? null
+            : Duration(
+                microseconds: (json['voiceMessageDuration'] as num).toInt()),
       );
 
   Map<String, dynamic> toJson() => {
         'message': message,
         'replyBy': replyBy,
         'replyTo': replyTo,
-        'message_type': messageType,
+        'message_type': _$MessageTypeEnumMap[messageType]!,
         'id': messageId,
-        'voiceMessageDuration': voiceMessageDuration,
+        'voiceMessageDuration': voiceMessageDuration?.inMicroseconds,
       };
 }
+
+const _$MessageTypeEnumMap = {
+  MessageType.image: 'image',
+  MessageType.text: 'text',
+  MessageType.voice: 'voice',
+  MessageType.custom: 'custom',
+};
