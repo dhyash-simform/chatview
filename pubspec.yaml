@@ -27,6 +27,7 @@ dependencies:
   html: ^0.15.1
   any_link_preview: ^3.0.0
   progress_indicators: ^1.0.0
+  json_annotation: ^4.9.0
   image_picker: '>=0.8.9 <2.0.0'
   audio_waveforms: ^1.0.1
   # For formatting time locale in message receipts
@@ -36,6 +37,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.1
+  build_runner: ^2.4.9
+  json_serializable: ^6.8.0
 
 flutter:
 

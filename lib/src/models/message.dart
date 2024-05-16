@@ -22,6 +22,7 @@
 import 'package:chatview/chatview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 class Message {
   /// Provides id
@@ -91,25 +92,51 @@ class Message {
   }
 
   factory Message.fromJson(Map<String, dynamic> json) => Message(
-      id: json["id"],
-      message: json["message"],
-      createdAt: json["createdAt"],
-      sendBy: json["sendBy"],
-      replyMessage: ReplyMessage.fromJson(json["reply_message"]),
-      reaction: Reaction.fromJson(json["reaction"]),
-      messageType: json["message_type"],
-      voiceMessageDuration: json["voice_message_duration"],
-      status: json['status']);
+        id: json['id'] as String? ?? '',
+        message: json['message'] as String,
+        createdAt: DateTime.parse(json['createdAt'] as String),
+        sendBy: json['sendBy'] as String,
+        replyMessage: json['reply_message'] == null
+            ? const ReplyMessage()
+            : ReplyMessage.fromJson(
+                json['reply_message'] as Map<String, dynamic>),
+        reaction: json['reaction'] == null
+            ? null
+            : Reaction.fromJson(json['reaction'] as Map<String, dynamic>),
+        messageType:
+            $enumDecodeNullable(_$MessageTypeEnumMap, json['message_type']) ??
+                MessageType.text,
+        voiceMessageDuration: json['voice_message_duration'] == null
+            ? null
+            : Duration(
+                microseconds: (json['voice_message_duration'] as num).toInt()),
+        status: $enumDecodeNullable(_$MessageStatusEnumMap, json['status']) ??
+            MessageStatus.pending,
+      );
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'message': message,
-        'createdAt': createdAt,
+        'createdAt': createdAt.toUtc().toIso8601String(),
         'sendBy': sendBy,
         'reply_message': replyMessage.toJson(),
         'reaction': reaction.toJson(),
-        'message_type': messageType,
-        'voice_message_duration': voiceMessageDuration,
-        'status': status.name
+        'message_type': _$MessageTypeEnumMap[messageType]!,
+        'voice_message_duration': voiceMessageDuration?.inMicroseconds,
+        'status': _$MessageStatusEnumMap[status.name]!,
       };
 }
+
+const _$MessageTypeEnumMap = {
+  MessageType.image: 'image',
+  MessageType.text: 'text',
+  MessageType.voice: 'voice',
+  MessageType.custom: 'custom',
+};
+
+const _$MessageStatusEnumMap = {
+  MessageStatus.read: 'read',
+  MessageStatus.delivered: 'delivered',
+  MessageStatus.undelivered: 'undelivered',
+  MessageStatus.pending: 'pending',
+};
