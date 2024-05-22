@@ -4,14 +4,27 @@ class Reaction {
     required this.reactedUserIds,
   });
 
-  factory Reaction.fromJson(Map<String, dynamic> json) => Reaction(
-        reactions: (json['reactions'] as List<dynamic>)
-            .map((e) => e as String)
-            .toList(),
-        reactedUserIds: (json['reactedUserIds'] as List<dynamic>)
-            .map((e) => e as String)
-            .toList(),
-      );
+  factory Reaction.fromJson(Map<String, dynamic> json) {
+    final reactions = <String>[];
+    final reactionsList = json['reactions'] as List<dynamic>?;
+
+    for (var i = 0; i < (reactionsList?.length ?? 0); i++) {
+      final reaction = reactionsList![i]?.toString();
+      if (reaction?.isEmpty ?? true) continue;
+      reactions.add(reaction!);
+    }
+
+    final reactedUserIds = <String>[];
+    final reactedUserIdList = json['reactedUserIds'] as List<dynamic>?;
+
+    for (var i = 0; i < (reactedUserIdList?.length ?? 0); i++) {
+      final reactedUserId = reactedUserIdList![i]?.toString();
+      if (reactedUserId?.isEmpty ?? true) continue;
+      reactedUserIds.add(reactedUserId!);
+    }
+
+    return Reaction(reactions: reactions, reactedUserIds: reactedUserIds);
+  }
 
   /// Provides list of reaction in single message.
   final List<String> reactions;

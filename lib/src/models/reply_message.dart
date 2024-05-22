@@ -19,8 +19,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import 'package:json_annotation/json_annotation.dart';
-
 import '../values/enumaration.dart';
 
 class ReplyMessage {
@@ -50,24 +48,25 @@ class ReplyMessage {
   });
 
   factory ReplyMessage.fromJson(Map<String, dynamic> json) => ReplyMessage(
-        message: json['message'],
-        replyBy: json['replyBy'],
-        replyTo: json['replyTo'],
-        messageType:
-            $enumDecodeNullable(_$MessageTypeEnumMap, json['message_type']) ??
-                MessageType.text,
-        messageId: json["id"],
+        message: json['message']?.toString() ?? '',
+        replyBy: json['replyBy']?.toString() ?? '',
+        replyTo: json['replyTo']?.toString() ?? '',
+        messageType: MessageType.tryParse(json['message_type']?.toString()) ??
+            MessageType.text,
+        messageId: json['id']?.toString() ?? '',
         voiceMessageDuration: json['voiceMessageDuration'] == null
             ? null
             : Duration(
-                microseconds: (json['voiceMessageDuration'] as num).toInt()),
+                microseconds:
+                    int.tryParse(json['voiceMessageDuration'].toString()) ?? 0,
+              ),
       );
 
   Map<String, dynamic> toJson() => {
         'message': message,
         'replyBy': replyBy,
         'replyTo': replyTo,
-        'message_type': _$MessageTypeEnumMap[messageType]!,
+        'message_type': messageType.name,
         'id': messageId,
         'voiceMessageDuration': voiceMessageDuration?.inMicroseconds,
       };
